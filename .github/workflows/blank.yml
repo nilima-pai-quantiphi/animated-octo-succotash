@@ -35,10 +35,10 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
-          # echo "$GITHUB_CONTEXT"
-          for s in $(echo $GITHUB_CONTEXT | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
-            export $s
-          done
+          echo "$GITHUB_CONTEXT" | grep "model_id"
+          #for s in $(echo $GITHUB_CONTEXT | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          #  export $s
+          #done
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
