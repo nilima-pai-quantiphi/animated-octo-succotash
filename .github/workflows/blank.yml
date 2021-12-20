@@ -35,7 +35,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
-          echo "$GITHUB_CONTEXT" | jq "model_id"
+          echo "$GITHUB_CONTEXT" | jq ".event.client_payload.model_id"
           #for s in $(echo $GITHUB_CONTEXT | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
           #  export $s
           #done
