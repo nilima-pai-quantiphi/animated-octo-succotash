@@ -31,11 +31,12 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Dump GitHub context
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'repository_dispatch' }}
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
-          echo "$GITHUB_CONTEXT" | jq ".event.client_payload.model_id"
+          export MODEL_ID=$(echo "$GITHUB_CONTEXT" | jq ".event.client_payload.model_id")
+          echo $MODEL_ID
           #for s in $(echo $GITHUB_CONTEXT | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
           #  export $s
           #done
